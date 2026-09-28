@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="description" content="Barcode Cinta - Surprise digital romantis">
+<title>Barcode Cinta ❤️</title>
+
+<style>
+/* ============================================================
+   GLOBAL
+   ============================================================ */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  background: #fdf6ed;
+  color: #2b1a20;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background 0.7s ease, color 0.7s ease;
+  position: relative;
+}
+
+.page {
+  display: none;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.page.active {
+  display: block;
+}
+
+/* ============================================================
+   QR PAGE
+   ============================================================ */
+.qr-page {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(255, 220, 230, 0.6) 0%, transparent 60%),
+    radial-gradient(ellipse at 100% 100%, rgba(255, 235, 225, 0.65) 0%, transparent 55%),
+    radial-gradient(ellipse at 0% 100%, rgba(255, 240, 235, 0.5) 0%, transparent 50%),
+    linear-gradient(180deg, #fffaf5 0%, #fdf3ec 55%, #fceee8 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding:
+    calc(28px + env(safe-area-inset-top, 0px))
+    calc(20px + env(safe-area-inset-right, 0px))
+    calc(48px + env(safe-area-inset-bottom, 0px))
+    calc(20px + env(safe-area-inset-left, 0px));
+  position: relative;
+  animation: fadeInPage 0.9s ease both;
+  overflow-y: auto;
+}
+
+@keyframes fadeInPage {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.qr-container {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(18px, 3.5vh, 28px);
+}
+
+.qr-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.qr-heart-icon {
+  font-size: clamp(36px, 9vw, 48px);
+  line-height: 1;
+  filter: drop-shadow(0 6px 18px rgba(180, 40, 80, 0.4));
+  animation: heartPulse 2.8s ease-in-out infinite;
+}
+
+@keyframes heartPulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.09); }
+}
+
+.qr-title {
+  font-size: clamp(20px, 6vw, 28px);
+  font-weight: 700;
+  letter-spacing: clamp(2px, 1vw, 4px);
+  color: #8b1e3f;
+  text-transform: uppercase;
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+}
+
+.qr-subtitle {
+  font-size: clamp(12px, 3.5vw, 15px);
+  font-weight: 400;
+  color: #a06a7a;
+  letter-spacing: 0.5px;
+  font-style: italic;
+}
+
+.qr-heart-frame {
+  position: relative;
+  padding: clamp(18px, 5vw, 28px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border-radius: 42px 42px 46px 46px;
+  box-shadow:
+    0 0 0 1px rgba(139, 30, 63, 0.06),
+    0 14px 44px rgba(139, 30, 63, 0.14),
+    0 4px 16px rgba(139, 30, 63, 0.06);
+  animation: glowPulseQR 3.6s ease-in-out infinite;
+  max-width: 100%;
+}
+
+@keyframes glowPulseQR {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(139, 30, 63, 0.06),
+      0 14px 44px rgba(139, 30, 63, 0.14),
+      0 4px 16px rgba(139, 30, 63, 0.06);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(139, 30, 63, 0.10),
+      0 16px 52px rgba(200, 60, 100, 0.24),
+      0 4px 20px rgba(139, 30, 63, 0.10);
+  }
+}
+
+.qr-heart-frame::before,
+.qr-heart-frame::after {
+  content: '❤';
+  position: absolute;
+  font-size: clamp(14px, 3.5vw, 20px);
+  color: #d47a95;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.qr-heart-frame::before {
+  top: 8px;
+  left: 16px;
+  animation: floatSmall 4.2s ease-in-out infinite;
+}
+
+.qr-heart-frame::after {
+  bottom: 10px;
+  right: 16px;
+  animation: floatSmall 4.2s ease-in-out infinite 1.4s;
+}
+
+@keyframes floatSmall {
+  0%, 100% { transform: translateY(0); opacity: 0.45; }
+  50%      { transform: translateY(-6px); opacity: 0.8; }
+}
+
+#qrCanvas {
+  display: block;
+  width: clamp(220px, 70vw, 320px);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  background: #ffffff;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  border-radius: 4px;
+  position: relative;
+  z-index: 2;
+  max-width: 100%;
+}
+
+.qr-hint {
+  font-size: clamp(12px, 3.4vw, 14px);
+  color: #a06a7a;
+  letter-spacing: 0.4px;
+  text-align: center;
+  line-height: 1.7;
+  max-width: 340px;
+}
+
+.qr-hint strong {
+  color: #8b1e3f;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.qr-error {
+  display: none;
+  padding: 16px 20px;
+  background: #fff0f3;
+  border: 1px solid #f5c2cd;
+  border-radius: 16px;
+  color: #a02845;
+  font-size: 13px;
+  text-align: center;
+  line-height: 1.7;
+  max-width: 360px;
+  font-weight: 500;
+}
+
+.qr-error.active {
+  display: block;
+}
+
+.qr-url-debug {
+  font-size: 10px;
+  color: #c9a5b0;
+  word-break: break-all;
+  text-align: center;
+  max-width: 360px;
+  line-height: 1.5;
+  padding: 8px 14px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  margin-top: 2px;
+  font-family: monospace;
+}
+
+/* ============================================================
+   LOVE PAGE - HOLOGRAM BACKGROUND
+   ============================================================ */
+.love-page {
+  background: #000000;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #e0f7ff;
+  animation: fadeInPage 1.3s ease both;
+  padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+}
+
+.holo-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.holo-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 240, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.035) 1px, transparent 1px);
+  background-size: 46px 46px;
+  -webkit-mask-image: radial-gradient(ellipse at center, black 25%, transparent 78%);
+  mask-image: radial-gradient(ellipse at center, black 25%, transparent 78%);
+}
+
+.holo-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 240, 255, 0.045) 0px,
+    rgba(0, 240, 255, 0.045) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity: 0.55;
+  animation: scanMove 9s linear infinite;
+}
+
+@keyframes scanMove {
+  from { background-position-y: 0; }
+  to   { background-position-y: 60px; }
+}
+
+.holo-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(0, 200, 255, 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 18% 82%, rgba(200, 0, 255, 0.055) 0%, transparent 50%),
+    radial-gradient(ellipse at 82% 18%, rgba(0, 255, 220, 0.045) 0%, transparent 50%);
+}
+
+.holo-dust {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.dust {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(0, 240, 255, 0.55);
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(0, 240, 255, 0.85);
+  animation: dustFloat linear infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes dustFloat {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% {
+    transform: translateY(-115vh) translateX(30px);
+    opacity: 0;
+  }
+}
+
+/* ============================================================
+   LOVE CONTENT & PHOTO FRAME
+   ============================================================ */
+.love-content {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: clamp(60px, 12vh, 100px) 16px;
+  pointer-events: none;
+}
+
+.photo-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  margin: auto;
+}
+
+.photo-frame {
+  position: relative;
+  width: min(78vw, 340px);
+  aspect-ratio: 4 / 5;
+  max-height: 72vh;
+  border-radius: 22px;
+  overflow: hidden;
+  background: rgba(0, 20, 30, 0.6);
+  box-shadow:
+    0 0 0 1px rgba(0, 240, 255, 0.35),
+    0 0 30px rgba(0, 200, 255, 0.22),
+    0 0 90px rgba(0, 180, 255, 0.09),
+    inset 0 0 20px rgba(0, 240, 255, 0.06);
+  animation: photoGlow 4.5s ease-in-out infinite;
+  z-index: 10;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  flex-shrink: 0;
+}
+
+@keyframes photoGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(0, 240, 255, 0.35),
+      0 0 30px rgba(0, 200, 255, 0.22),
+      0 0 90px rgba(0, 180, 255, 0.09);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(0, 240, 255, 0.6),
+      0 0 42px rgba(0, 220, 255, 0.35),
+      0 0 120px rgba(0, 180, 255, 0.16);
+  }
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 21px;
+  position: relative;
+  z-index: 2;
+  transition: opacity 0.8s ease;
+}
+
+.photo-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 240, 255, 0.07) 0px,
+    rgba(0, 240, 255, 0.07) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  pointer-events: none;
+  animation: photoScan 6.5s linear infinite;
+  border-radius: 21px;
+}
+
+@keyframes photoScan {
+  from { background-position-y: 0; }
+  to   { background-position-y: 40px; }
+}
+
+.photo-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 240, 255, 0.07) 0%,
+    transparent 32%,
+    transparent 68%,
+    rgba(200, 0, 255, 0.05) 100%
+  );
+  pointer-events: none;
+  border-radius: 21px;
+}
+
+/* ============================================================
+   HOLOGRAPHIC HEART ORNAMENT
+   ============================================================ */
+.holo-heart {
+  position: absolute;
+  font-size: clamp(18px, 4vw, 24px);
+  color: rgba(0, 240, 255, 0.88);
+  text-shadow:
+    0 0 8px rgba(0, 240, 255, 0.95),
+    0 0 20px rgba(0, 200, 255, 0.65),
+    0 0 40px rgba(0, 180, 255, 0.35);
+  animation: holoHeartFloat 5.2s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 12;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.holo-heart.h1 {
+  top: -14px;
+  left: -18px;
+  animation-delay: 0s;
+}
+
+.holo-heart.h2 {
+  bottom: -12px;
+  right: -16px;
+  font-size: clamp(13px, 3vw, 17px);
+  animation-delay: 1.9s;
+}
+
+@keyframes holoHeartFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-14px) rotate(8deg);
+    opacity: 1;
+  }
+}
+
+/* ============================================================
+   FLOATING TEXT (HOLOGRAM)
+   ============================================================ */
+.holo-text-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 8;
+  overflow: hidden;
+}
+
+.holo-word {
+  position: absolute;
+  white-space: nowrap;
+  font-family: 'Inter', 'Space Grotesk', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.6px;
+  color: #e0f7ff;
+  text-shadow:
+    0 0 4px rgba(255, 255, 255, 0.75),
+    0 0 10px rgba(0, 240, 255, 0.75),
+    0 0 22px rgba(0, 200, 255, 0.55),
+    0 0 44px rgba(0, 180, 255, 0.28);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+  max-width: 90vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  animation-name: holoAppear;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  transform-origin: center center;
+}
+
+@keyframes holoAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+    filter: blur(3px);
+  }
+  8% {
+    opacity: 0.85;
+    filter: blur(0px);
+  }
+  14% {
+    opacity: 0.4;
+    filter: blur(0.6px);
+  }
+  20% {
+    opacity: 0.92;
+    filter: blur(0px);
+  }
+  50% {
+    opacity: 0.95;
+    transform: translateY(-10px) scale(1);
+  }
+  80% {
+    opacity: 0.7;
+    filter: blur(0.3px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-28px) scale(1.02);
+    filter: blur(2px);
+  }
+}
+
+/* ============================================================
+   SIGNATURE
+   ============================================================ */
+.love-signature {
+  position: fixed;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: rgba(0, 240, 255, 0.38);
+  text-transform: uppercase;
+  z-index: 15;
+  pointer-events: none;
+  font-weight: 400;
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.35);
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.heart-btn {
+  position: fixed;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  right: calc(20px + env(safe-area-inset-right, 0px));
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(0, 40, 55, 0.35);
+  border: 1px solid rgba(0, 240, 255, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #e0f7ff;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 50;
+  box-shadow:
+    0 0 14px rgba(0, 240, 255, 0.4),
+    0 0 32px rgba(0, 200, 255, 0.16),
+    inset 0 0 12px rgba(0, 240, 255, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  line-height: 1;
+  padding-bottom: 2px;
+  touch-action: manipulation;
+}
+
+.heart-btn:active {
+  transform: scale(0.88);
+  box-shadow:
+    0 0 24px rgba(0, 240, 255, 0.7),
+    0 0 54px rgba(0, 200, 255, 0.35);
+}
+
+.music-btn {
+  position: fixed;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  left: calc(20px + env(safe-area-inset-left, 0px));
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0, 40, 55, 0.35);
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #e0f7ff;
+  font-size: 18px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 50;
+  box-shadow:
+    0 0 12px rgba(0, 240, 255, 0.3),
+    inset 0 0 10px rgba(0, 240, 255, 0.06);
+  transition: transform 0.2s ease, opacity 0.3s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  line-height: 1;
+  touch-action: manipulation;
+}
+
+.music-btn.visible {
+  display: flex;
+}
+
+.music-btn:active {
+  transform: scale(0.9);
+}
+
+.music-btn.playing {
+  box-shadow:
+    0 0 20px rgba(0, 240, 255, 0.6),
+    0 0 44px rgba(0, 200, 255, 0.28);
+  border-color: rgba(0, 240, 255, 0.75);
+}
+
+/* ============================================================
+   HEART PARTICLES
+   ============================================================ */
+.holo-particle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 100;
+  font-size: 16px;
+  color: rgba(0, 240, 255, 0.9);
+  text-shadow:
+    0 0 8px rgba(0, 240, 255, 0.95),
+    0 0 18px rgba(0, 200, 255, 0.65);
+  will-change: transform, opacity;
+  line-height: 1;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+@keyframes particleBurst {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(0.6);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--px), var(--py)) scale(1.1);
+  }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 380px) {
+  .photo-frame { width: 76vw; }
+  .heart-btn { width: 46px; height: 46px; font-size: 20px; }
+  .music-btn { width: 40px; height: 40px; font-size: 16px; }
+}
+
+@media (min-width: 768px) {
+  .photo-frame { width: min(46vw, 340px); }
+}
+
+@media (min-width: 1024px) {
+  .photo-frame { width: min(32vw, 360px); }
+}
+
+@media (orientation: landscape) and (max-height: 520px) {
+  .photo-frame {
+    width: min(38vh, 240px);
+    max-height: 70vh;
+  }
+  .love-content {
+    padding: 40px 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     STATE 1 — QR PAGE
+     ============================================================ -->
+<div id="qrPage" class="page active qr-page">
+  <div class="qr-container">
+
+    <div class="qr-header">
+      <div class="qr-heart-icon">❤️</div>
+      <div class="qr-title">Barcode Cinta</div>
+      <div class="qr-subtitle">scan kalau kamu penasaran...</div>
+    </div>
+
+    <div class="qr-heart-frame">
+      <canvas id="qrCanvas" width="320" height="320"></canvas>
+    </div>
+
+    <div class="qr-hint">
+      <strong>Arahkan kamera ke QR Code</strong>
+      untuk membuka pesan rahasia
+    </div>
+
+    <div id="qrError" class="qr-error">
+      ⚠️ Gagal memuat library QR Code.<br>
+      Pastikan koneksi internet aktif, lalu muat ulang halaman ini.
+    </div>
+
+    <div id="qrUrlDebug" class="qr-url-debug"></div>
+
+  </div>
+</div>
+
+<!-- ============================================================
+     STATE 2 — LOVE PAGE (HOLOGRAM)
+     ============================================================ -->
+<div id="lovePage" class="page love-page">
+
+  <div class="holo-bg">
+    <div class="holo-glow"></div>
+    <div class="holo-grid"></div>
+    <div class="holo-scanlines"></div>
+    <div class="holo-dust" id="holoDust"></div>
+  </div>
+
+  <div class="holo-text-layer" id="holoTextLayer"></div>
+
+  <div class="love-content">
+    <div class="photo-wrapper">
+      <div class="holo-heart h1">♡</div>
+      <div class="photo-frame" id="photoFrame">
+        <img id="profileImage" src="foto-cewek.jpg" alt="Dia">
+      </div>
+      <div class="holo-heart h2">♥</div>
+    </div>
+  </div>
+
+  <div class="love-signature">Barcode Cinta · Hologram</div>
+
+  <button class="heart-btn" id="heartBtn" aria-label="Kirim cinta">♡</button>
+  <button class="music-btn" id="musicBtn" aria-label="Musik">♫</button>
+
+  <audio id="bgMusic" loop preload="none">
+    <source src="musik.mp3" type="audio/mpeg">
+  </audio>
+
+</div>
+
+<script>
+/* ================================================================
+   BARCODE CINTA — Single File Interactive Website
+   ================================================================
+   Sections:
+   - KONFIGURASI
+   - URL SYSTEM
+   - QR SYSTEM
+   - LOVE PAGE
+   - HOLOGRAM TEXT
+   - HEART PARTICLES
+   - BACKGROUND DUST
+   - MUSIC
+   - INITIALIZATION
+   ================================================================ */
+
+(function () {
+  'use strict';
+
+  /* ============================================================
+     KONFIGURASI
+     ============================================================ */
+  const profileImage = "foto-cewek.jpg";
+
+  const LOVE_PHRASES = [
+    "entah kenapa kamu",
+    "tetap kamu",
+    "aku nyaman denganmu",
+    "senyummu",
+    "tatapanmu",
+    "kalau boleh jujur",
+    "ada kamu di pikiranku",
+    "mungkin ini sederhana",
+    "tapi kamu berarti",
+    "aku masih di sini",
+    "anehnya selalu kamu",
+    "tanpa sadar aku mencarimu",
+    "kamu punya tempat sendiri",
+    "aku suka caramu tersenyum",
+    "jangan pergi dulu"
+  ];
+
+  const MAX_WORDS_ON_SCREEN = 7;
+  const WORD_SPAWN_INTERVAL = 2200;
+  const SAFE_ZONE_RADIUS_RATIO = 0.30;
+
+  /* ============================================================
+     URL SYSTEM
+     ============================================================ */
+  const urlParams = new URLSearchParams(window.location.search);
+  const isLoveMode = urlParams.get("love") === "1";
+
+  function buildTargetURL() {
+    const origin = window.location.origin;
+    const pathname = window.location.pathname;
+    return origin + pathname + "?love=1";
+  }
+
+  const targetURL = buildTargetURL();
+
+  /* ============================================================
+     QR SYSTEM
+     ============================================================ */
+  const qrCanvas = document.getElementById('qrCanvas');
+  const qrError = document.getElementById('qrError');
+  const qrUrlDebug = document.getElementById('qrUrlDebug');
+
+  function loadQRLibrary() {
+    return new Promise(function (resolve, reject) {
+      if (typeof window.qrcode === 'function') {
+        resolve();
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = "https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js";
+      script.async = true;
+      script.onload = function () {
+        if (typeof window.qrcode === 'function') {
+          resolve();
+        } else {
+          reject(new Error('qrcode-generator tidak tersedia'));
+        }
+      };
+      script.onerror = function () {
+        reject(new Error('Gagal memuat script qrcode-generator'));
+      };
+      document.head.appendChild(script);
+    });
+  }
+
+  function generateQRCode() {
+    if (typeof window.qrcode !== 'function') {
+      qrError.classList.add('active');
+      return;
+    }
+
+    try {
+      const qr = window.qrcode(0, 'H');
+      qr.addData(targetURL);
+      qr.make();
+
+      const moduleCount = qr.getModuleCount();
+      const size = 320;
+      const quietZoneModules = 4;
+      const totalModules = moduleCount + (quietZoneModules * 2);
+      const cellSize = size / totalModules;
+
+      qrCanvas.width = size;
+      qrCanvas.height = size;
+
+      const ctx = qrCanvas.getContext('2d');
+
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, size, size);
+
+      ctx.fillStyle = '#000000';
+
+      for (let row = 0; row < moduleCount; row++) {
+        for (let col = 0; col < moduleCount; col++) {
+          if (qr.isDark(row, col)) {
+            const x = (col + quietZoneModules) * cellSize;
+            const y = (row + quietZoneModules) * cellSize;
+            ctx.fillRect(
+              Math.floor(x),
+              Math.floor(y),
+              Math.ceil(cellSize),
+              Math.ceil(cellSize)
+            );
+          }
+        }
+      }
+
+      if (qrUrlDebug) {
+        qrUrlDebug.textContent = 'QR → ' + targetURL;
+      }
+
+    } catch (err) {
+      console.error('QR generation error:', err);
+      qrError.classList.add('active');
+    }
+  }
+
+  /* ============================================================
+     LOVE PAGE
+     ============================================================ */
+  const qrPage = document.getElementById('qrPage');
+  const lovePage = document.getElementById('lovePage');
+
+  function showQRPage() {
+    qrPage.classList.add('active');
+    lovePage.classList.remove('active');
+    document.body.style.background = '#fdf6ed';
+  }
+
+  function showLovePage() {
+    qrPage.classList.remove('active');
+    lovePage.classList.add('active');
+    document.body.style.background = '#000000';
+
+    const img = document.getElementById('profileImage');
+    img.src = profileImage;
+    img.onerror = function () {
+      this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500' viewBox='0 0 400 500'%3E%3Crect width='400' height='500' fill='%23001a22'/%3E%3Ctext x='200' y='250' font-family='Inter,sans-serif' font-size='22' fill='%2300f0ff' text-anchor='middle' opacity='0.75'%3E%E2%9D%A4%3C/text%3E%3Ctext x='200' y='290' font-family='Inter,sans-serif' font-size='14' fill='%2300f0ff' text-anchor='middle' opacity='0.55'%3Efoto tidak ditemukan%3C/text%3E%3C/svg%3E";
+      this.onerror = null;
+    };
+
+    initHologramText();
+    initBackgroundDust();
+    checkMusicAvailability();
+  }
+
+  /* ============================================================
+     HOLOGRAM TEXT
+     ============================================================ */
+  const holoTextLayer = document.getElementById('holoTextLayer');
+  let wordSpawnTimer = null;
+  let activeWordCount = 0;
+
+  function isInSafeZone(x, y) {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const cx = vw / 2;
+    const cy = vh / 2;
+    const safeRadius = Math.min(vw, vh) * SAFE_ZONE_RADIUS_RATIO;
+    const dx = x - cx;
+    const dy = y - cy;
+    return Math.sqrt(dx * dx + dy * dy) < safeRadius;
+  }
+
+  function findPosition(textWidth) {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const padding = 16;
+    const textHeight = 30;
+
+    let x, y;
+    let attempts = 0;
+    const maxAttempts = 60;
+
+    do {
+      x = padding + Math.random() * Math.max(10, vw - textWidth - padding * 2);
+      y = padding + Math.random() * Math.max(10, vh - textHeight - padding * 2);
+      attempts++;
+    } while (isInSafeZone(x + textWidth / 2, y + textHeight / 2) && attempts < maxAttempts);
+
+    if (isInSafeZone(x + textWidth / 2, y + textHeight / 2)) {
+      const side = Math.floor(Math.random() * 4);
+      if (side === 0) {
+        x = padding;
+        y = padding + Math.random() * (vh - textHeight - padding * 2);
+      } else if (side === 1) {
+        x = Math.max(padding, vw - textWidth - padding);
+        y = padding + Math.random() * (vh - textHeight - padding * 2);
+      } else if (side === 2) {
+        x = padding + Math.random() * (vw - textWidth - padding * 2);
+        y = padding;
+      } else {
+        x = padding + Math.random() * (vw - textWidth - padding * 2);
+        y = vh - textHeight - padding;
+      }
+    }
+
+    return {
+      x: Math.max(padding, Math.min(x, vw - textWidth - padding)),
+      y: Math.max(padding, Math.min(y, vh - textHeight - padding))
+    };
+  }
+
+  function spawnHologramWord() {
+    if (activeWordCount >= MAX_WORDS_ON_SCREEN) return;
+    if (!lovePage.classList.contains('active')) return;
+
+    const phrase = LOVE_PHRASES[Math.floor(Math.random() * LOVE_PHRASES.length)];
+
+    const el = document.createElement('div');
+    el.className = 'holo-word';
+    el.textContent = phrase;
+
+    const fontSize = 13 + Math.random() * 11;
+    el.style.fontSize = fontSize + 'px';
+
+    const approxWidth = Math.min(
+      phrase.length * fontSize * 0.58,
+      window.innerWidth - 40
+    );
+
+    const pos = findPosition(approxWidth);
+    el.style.left = pos.x + 'px';
+    el.style.top = pos.y + 'px';
+
+    const duration = 6 + Math.random() * 5;
+    el.style.animationDuration = duration + 's';
+    el.style.animationDelay = (Math.random() * 0.4) + 's';
+
+    const rotation = (Math.random() - 0.5) * 4;
+    el.style.transform = 'rotate(' + rotation + 'deg)';
+
+    holoTextLayer.appendChild(el);
+    activeWordCount++;
+
+    const totalTime = (duration + 0.6) * 1000;
+    setTimeout(function () {
+      if (el.parentNode) el.parentNode.removeChild(el);
+      activeWordCount = Math.max(0, activeWordCount - 1);
+    }, totalTime);
+  }
+
+  function initHologramText() {
+    holoTextLayer.innerHTML = '';
+    activeWordCount = 0;
+
+    for (let i = 0; i < 3; i++) {
+      setTimeout(spawnHologramWord, i * 700);
+    }
+
+    if (wordSpawnTimer) clearInterval(wordSpawnTimer);
+    wordSpawnTimer = setInterval(spawnHologramWord, WORD_SPAWN_INTERVAL);
+  }
+
+  /* ============================================================
+     HEART PARTICLES
+     ============================================================ */
+  const PARTICLE_CHARS = ['♡', '♥', '✦', '•', '❤'];
+
+  function spawnHeartParticles(x, y, count) {
+    count = count || (5 + Math.floor(Math.random() * 4));
+
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement('div');
+      p.className = 'holo-particle';
+      p.textContent = PARTICLE_CHARS[Math.floor(Math.random() * PARTICLE_CHARS.length)];
+
+      const size = 10 + Math.random() * 16;
+      p.style.fontSize = size + 'px';
+      p.style.left = x + 'px';
+      p.style.top = y + 'px';
+
+      const angle = Math.random() * Math.PI * 2;
+      const distance = 40 + Math.random() * 90;
+      const px = Math.cos(angle) * distance;
+      const py = Math.sin(angle) * distance - 30;
+
+      p.style.setProperty('--px', px + 'px');
+      p.style.setProperty('--py', py + 'px');
+
+      const dur = 1.0 + Math.random() * 1.2;
+      p.style.animation = 'particleBurst ' + dur + 's ease-out forwards';
+
+      const colors = [
+        'rgba(0, 240, 255, 0.9)',
+        'rgba(200, 240, 255, 0.9)',
+        'rgba(180, 220, 255, 0.8)',
+        'rgba(220, 180, 255, 0.75)'
+      ];
+      p.style.color = colors[Math.floor(Math.random() * colors.length)];
+
+      document.body.appendChild(p);
+
+      setTimeout(function () {
+        if (p.parentNode) p.parentNode.removeChild(p);
+      }, (dur + 0.3) * 1000);
+    }
+  }
+
+  function handlePointerDown(e) {
+    if (!lovePage.classList.contains('active')) return;
+    if (e.target.closest('button')) return;
+
+    let x, y;
+    if (e.touches && e.touches.length > 0) {
+      x = e.touches[0].clientX;
+      y = e.touches[0].clientY;
+    } else {
+      x = e.clientX;
+      y = e.clientY;
+    }
+    if (typeof x !== 'number' || typeof y !== 'number') return;
+
+    spawnHeartParticles(x, y, 5 + Math.floor(Math.random() * 4));
+  }
+
+  /* ============================================================
+     BACKGROUND DUST
+     ============================================================ */
+  function initBackgroundDust() {
+    const dustContainer = document.getElementById('holoDust');
+    if (!dustContainer) return;
+
+    const DUST_COUNT = 22;
+    dustContainer.innerHTML = '';
+
+    for (let i = 0; i < DUST_COUNT; i++) {
+      const d = document.createElement('div');
+      d.className = 'dust';
+
+      d.style.left = Math.random() * 100 + '%';
+      d.style.top = (100 + Math.random() * 20) + '%';
+
+      const s = 1 + Math.random() * 2.5;
+      d.style.width = s + 'px';
+      d.style.height = s + 'px';
+
+      const dur = 12 + Math.random() * 18;
+      d.style.animationDuration = dur + 's';
+      d.style.animationDelay = (Math.random() * dur) + 's';
+
+      d.style.opacity = (0.2 + Math.random() * 0.5).toFixed(2);
+
+      dustContainer.appendChild(d);
+    }
+  }
+
+  /* ============================================================
+     MUSIC
+     ============================================================ */
+  const musicBtn = document.getElementById('musicBtn');
+  const bgMusic = document.getElementById('bgMusic');
+  let musicAvailable = false;
+  let musicChecked = false;
+  let musicPlaying = false;
+
+  function checkMusicAvailability() {
+    if (musicChecked) return;
+    musicChecked = true;
+
+    const testAudio = new Audio();
+    testAudio.preload = 'metadata';
+    testAudio.src = 'musik.mp3';
+
+    const showBtn = function () {
+      musicAvailable = true;
+      musicBtn.classList.add('visible');
+    };
+
+    const hideBtn = function () {
+      musicAvailable = false;
+      musicBtn.classList.remove('visible');
+    };
+
+    testAudio.addEventListener('loadedmetadata', showBtn, { once: true });
+    testAudio.addEventListener('canplaythrough', showBtn, { once: true });
+    testAudio.addEventListener('error', hideBtn, { once: true });
+
+    setTimeout(function () {
+      if (!musicAvailable) {
+        hideBtn();
+      }
+    }, 3500);
+  }
+
+  function toggleMusic() {
+    if (musicPlaying) {
+      bgMusic.pause();
+      musicPlaying = false;
+      musicBtn.classList.remove('playing');
+      musicBtn.textContent = '♫';
+      return;
+    }
+
+    const playPromise = bgMusic.play();
+    if (playPromise !== undefined) {
+      playPromise.then(function () {
+        musicPlaying = true;
+        musicBtn.classList.add('playing');
+        musicBtn.textContent = '♪';
+      }).catch(function (err) {
+        console.warn('Musik tidak dapat diputar:', err);
+      });
+    }
+  }
+
+  /* ============================================================
+     INITIALIZATION
+     ============================================================ */
+  function init() {
+    document.addEventListener('pointerdown', handlePointerDown, { passive: true });
+
+    const heartBtn = document.getElementById('heartBtn');
+    heartBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      const rect = heartBtn.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      spawnHeartParticles(cx, cy, 14 + Math.floor(Math.random() * 8));
+    });
+
+    musicBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      toggleMusic();
+    });
+
+    if (isLoveMode) {
+      showLovePage();
+    } else {
+      showQRPage();
+
+      loadQRLibrary()
+        .then(function () {
+          generateQRCode();
+        })
+        .catch(function (err) {
+          console.error('QR library error:', err);
+          qrError.classList.add('active');
+        });
+    }
+
+    let resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        if (lovePage.classList.contains('active')) {
+          initHologramText();
+        }
+        if (qrPage.classList.contains('active') && typeof window.qrcode === 'function') {
+          generateQRCode();
+        }
+      }, 420);
+    });
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        if (bgMusic && !bgMusic.paused) {
+          bgMusic.pause();
+        }
+      } else {
+        if (musicPlaying && bgMusic.paused) {
+          bgMusic.play().catch(function () {});
+        }
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+})();
+</script>
+</body>
+</html>
